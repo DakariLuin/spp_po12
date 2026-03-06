@@ -11,14 +11,14 @@ class AssignmentType(Enum):
 class Assignment:
     """Класс Назначение (Ассоциация между врачом, типом лечения и исполнителем)"""
 
-    def __init__(self, description, type: AssignmentType):
+    def __init__(self, description, assignment_type: AssignmentType):
         self.description = description
-        self.type = type
+        self.assignment_type = assignment_type
         self.is_completed = False
 
     def __str__(self):
         status = "✅ Выполнено" if self.is_completed else "⏳ Ожидает"
-        return f"[{self.type.value}] {self.description} — {status}"
+        return f"[{self.assignment_type.value}] {self.description} — {status}"
 
 
 # --- Модель персонала ---
@@ -35,9 +35,9 @@ class Staff:
 
 
 class Doctor(Staff):
-    def prescribe(self, patient, description, type: AssignmentType):
+    def prescribe(self, patient, description, assignment_type: AssignmentType):
         """Врач делает назначение пациенту"""
-        new_assignment = Assignment(description, type)
+        new_assignment = Assignment(description, assignment_type)
         patient.assignments.append(new_assignment)
         print(f"Доктор {self.name} назначил {description} пациенту {patient.name}")
 
